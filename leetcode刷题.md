@@ -6,14 +6,16 @@
 
 每天两道go 和java 保持状态，加油
 
-#### 1两数之和
+#### 1 两数之和
 
-1 java
+url:  https://leetcode.cn/problems/two-sum/description/
+
+1 暴力解法：双重循环
 
 ```java
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        int n=nums.length;
+        int n = nums.length;
         for(int i=0;i<n;i++){
             for(int j=i+1;j<n;j++){
                 if(nums[i]+nums[j]==target){
