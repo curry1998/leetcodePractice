@@ -1,1 +1,3 @@
 # leetcodePractice
+
+为了熟悉java 和 go 语言，重启刷题计划。加油....
