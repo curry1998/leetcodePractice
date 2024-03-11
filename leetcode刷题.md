@@ -56,7 +56,7 @@ class Solution {
 func twoSum(nums []int, target int) []int {
    for i,num:=range nums{
       j:=i+1
-      for j<len(nums){
+      for j < len(nums){
          if num+nums[j]==target{
             return []int{i,j}
          }
@@ -73,58 +73,62 @@ hash 注意go 语言的map 就是hashmap
 
 ```go
 func twoSum(nums []int, target int) []int {
-   hashtable:=map[int]int{}
-   for i,num:=range nums{
-      //后面的ok 是判断语句这是go语言map 特有的判断语句
-      if  p,ok:=hashtable[target-num] ;ok{
-         if p>i{
-            return []int {i,p}
-         }else {
-            return [] int{p,i}
-         }
-      }
-      hashtable[num]=i
-   }
-   return nil
+	targetMap := map[int]int{}
+	for i, num := range nums {
+		if p, ok := targetMap[target-num]; ok {
+			return []int{i, p}
+		} else {
+			targetMap[num] = i
+		}
+	}
+	return nil
 }
 ```
 
 
 
+#### 2 twonum sum 两数相加
 
+url: https://leetcode.cn/problems/add-two-numbers/
 
-#### 2 twonum sum 
-
-感觉这是一道数学题
+思路： 这是一道链表题，链表题通常需要一个空指针来简化操作。计算两个链表对应位的和，然后通过尾插法插入到新的链表中。注意要考虑进位的问题。
 
 1 go 
 
 ```go
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-   // 新结点的头
-   headNode:=& ListNode{Val: 0}
-   // carry 进位
-   n1,n2,carry,current:=0,0,0,headNode
-   //三者同时满足退出for 循环
-   for l1!=nil || l2!=nil || carry!=0{
-      if l1==nil{
-         n1=0
-      }else {
-         n1=l1.Val
-         l1=l1.Next
-      }
-      if l2==nil{
-         n2=0
-      }else{
-         n2=l2.Val
-         l2=l2.Next
-      }
-      current.Next=&ListNode{(n1+n2+carry)%10,nil}
-      current=current.Next
-      carry=(n1+n2+carry)/10
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
-   }
-   return headNode.Next
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	head := &ListNode{Val: 0}
+	num1, num2 := 0, 0
+	carry := 0
+	// define work Point
+	current := head
+	for l1 != nil || l2 != nil || carry != 0 {
+		// l1 or l2 maybe nil
+		if l1 == nil {
+			num1 = 0
+		} else {
+			num1 = l1.Val
+			l1 = l1.Next
+		}
+		if l2 == nil {
+			num2 = 0
+		} else {
+			num2 = l2.Val
+			l2 = l2.Next
+		}
+		l := &ListNode{(num1 + num2 + carry) % 10, nil}
+		carry = (num1 + num2 + carry) / 10
+
+		// post insert
+		current.Next = l
+		current = l
+	}
+	return head.Next
 }
 ```
 
@@ -164,6 +168,12 @@ class Solution {
 
 
 #### 3 无重复字符的最长子串
+
+url:  https://leetcode.cn/problems/longest-substring-without-repeating-characters/
+
+思路： 使用滑动窗口，滑动窗口类型题目可参考： https://blog.csdn.net/weixin_39802680/article/details/119889745
+
+
 
 ```java
 import java.util.HashMap;
