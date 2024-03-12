@@ -173,7 +173,7 @@ url:  https://leetcode.cn/problems/longest-substring-without-repeating-character
 
 思路： 使用滑动窗口，滑动窗口类型题目可参考： https://blog.csdn.net/weixin_39802680/article/details/119889745
 
-
+java 的方法不是很好
 
 ```java
 import java.util.HashMap;
@@ -205,9 +205,31 @@ public class 无重复字符的最长子串 {
 }
 ```
 
- 重点是left　的移动问题
+ go 中使用map 来充当set， 并不断更新set集合
 
-
+```go
+func lengthOfLongestSubstring(s string) int {
+ // go 中没有 set 可以使用 map 来保证唯一性
+	countMap := map[rune]bool{}
+	arr := []rune(s)
+	left, right, lens := 0, 0, len(arr)
+	res := 0
+	for right < lens {
+		t := arr[right]
+		for countMap[t] {
+			// 删除set 中的重复元素，直到不重复
+			delete(countMap, arr[left])
+			left++
+		}
+		if right-left >= res {
+			res = right - left + 1
+		}
+		countMap[arr[right]] = true
+		right++
+	}
+	return res
+}
+```
 
 
 

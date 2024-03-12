@@ -1,4 +1,4 @@
-package 哈希
+package Hash
 
 func twoSum(nums []int, target int) []int {
 	targetMap := map[int]int{}
