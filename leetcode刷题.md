@@ -173,38 +173,6 @@ url:  https://leetcode.cn/problems/longest-substring-without-repeating-character
 
 思路： 使用滑动窗口，滑动窗口类型题目可参考： https://blog.csdn.net/weixin_39802680/article/details/119889745
 
-java 的方法不是很好
-
-```java
-import java.util.HashMap;
-
-public class 无重复字符的最长子串 {
-    public static void main(String[] args) {
-        String a = new String("tmmzuxt");
-        int i = lengthOfLongestSubstring(a);
-        System.out.println(i);
-    }
-    public static int lengthOfLongestSubstring(String s) {
-        if (s.length() == 0)
-            return 0;
-
-        int left = 0,res = 0;
-        HashMap<Character, Integer> hashMap = new HashMap<>();
-
-        //思想上错误没有考虑一个环节（left的更新需要hashmap）
-       for(int right=0;right<s.length();right++){
-           if(hashMap.containsKey(s.charAt(right))){
-               left=Math.max(left,hashMap.get(s.charAt(right))+1);
-           }
-           hashMap.put(s.charAt(right),right);
-           res=Math.max(res,right-left+1);
-       }
-        return res;
-    }
-
-}
-```
-
  go 中使用map 来充当set， 并不断更新set集合
 
 ```go
